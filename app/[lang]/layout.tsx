@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { metaTitle } from "@/lib/meta";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { dict, DIR, HTML_LANG } from "@/lib/i18n";
@@ -24,7 +26,7 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(SITE.domain),
     title: {
-      default: `${SITE.name} — ${t.tagline}`,
+      default: metaTitle(SITE.name, t.tagline),
       template: `%s | ${SITE.name}`,
     },
     description: t.metaDesc,
@@ -35,7 +37,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       siteName: SITE.name,
-      title: `${SITE.name} — ${t.tagline}`,
+      title: metaTitle(SITE.name, t.tagline),
       description: t.metaDesc,
       locale: HTML_LANG[lang],
     },
@@ -90,8 +92,9 @@ export default async function LangLayout({
           <Nav />
           <main>{children}</main>
           <Footer />
+          <Analytics />
         </I18nProvider>
-      </body>
+    </body>
     </html>
   );
 }

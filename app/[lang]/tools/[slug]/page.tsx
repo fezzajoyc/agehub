@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { metaTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { dict, HTML_LANG } from "@/lib/i18n";
@@ -45,7 +46,7 @@ export async function generateMetadata({
     LOCALES.map((l) => [HTML_LANG[l], `/${l}/tools/${tool.slug}`]),
   );
   return {
-    title: `${c.h1 ?? c.name} — ${USP[lang] ?? USP.en!}`,
+    title: metaTitle(c.h1 ?? c.name, USP[lang] ?? USP.en!),
     description: c.tagline,
     alternates: {
       canonical: `/${lang}/tools/${tool.slug}`,

@@ -46,7 +46,7 @@ for (const batch of batches) {
     body: JSON.stringify({
       host: domain.replace(/^https?:\/\//, ""),
       key,
-      keyLocation: `${domain}/indexnow-${key}.txt`,
+      keyLocation: `${domain}/indexnow.txt`,
       urlList: batch,
     }),
   });
