@@ -1,0 +1,49 @@
+{
+  "name": "agehub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "push:indexnow": "node scripts/indexnow-push.mjs",
+    "build:mcp": "esbuild mcp/server.ts --bundle --platform=node --format=esm --target=node20 --outfile=mcp/dist/server.mjs --legal-comments=none"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@zxcvbn-ts/core": "^3.0.2",
+    "@zxcvbn-ts/language-common": "^3.0.2",
+    "croner": "^11.0.0",
+    "diff": "^7.0.0",
+    "js-md5": "^0.8.3",
+    "jsbarcode": "^3.11.6",
+    "marked": "^15.0.7",
+    "next": "16.4.2",
+    "qrcode": "^1.5.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sql-formatter": "^15.5.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/diff": "^7.0.2",
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/turndown": "^5.0.6",
+    "esbuild": "^0.28.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.7"
+  },
+  "bin": {
+    "agehub-mcp": "mcp/dist/server.mjs"
+  }
+}
