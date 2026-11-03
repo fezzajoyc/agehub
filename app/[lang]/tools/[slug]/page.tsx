@@ -115,6 +115,19 @@ export default async function ToolPage({
           },
           {
             "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: c.name,
+            description: c.tagline,
+            step: c.steps.map((s, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: `Step ${i + 1}`,
+              text: s,
+              url: `${url}#step-${i + 1}`,
+            })),
+          },
+          {
+            "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: c.faqs.map((f) => ({
               "@type": "Question",
