@@ -85,7 +85,7 @@ export function ToolCard({
       <h3 className="font-semibold leading-tight">{name}</h3>
       <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-5 text-[var(--color-sub)]">{tagline}</p>
       <p className="mt-3 text-[13px] font-medium text-[var(--color-accent-strong)] opacity-0 transition-opacity group-hover:opacity-100">
-        {t.nav.tools} →
+        {t.common.openTool} →
       </p>
     </Link>
   );

@@ -81,6 +81,7 @@ const ja: Dictionary = {
   },
 
   common: {
+    openTool: "ツールを開く",
     copy: "コピー",
     copied: "コピーしました",
     download: "ダウンロード",

@@ -81,6 +81,7 @@ const zh: Dictionary = {
   },
 
   common: {
+    openTool: "打开工具",
     copy: "复制",
     copied: "已复制",
     download: "下载",

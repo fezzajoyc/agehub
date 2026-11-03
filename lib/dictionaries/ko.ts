@@ -86,6 +86,7 @@ const ko: Dictionary = {
   },
 
   common: {
+    openTool: "도구 열기",
     copy: "복사",
     copied: "복사됨",
     download: "다운로드",

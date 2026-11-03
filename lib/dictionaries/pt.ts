@@ -81,6 +81,7 @@ const pt: Dictionary = {
   },
 
   common: {
+    openTool: "Abrir ferramenta",
     copy: "Copiar",
     copied: "Copiado",
     download: "Baixar",
