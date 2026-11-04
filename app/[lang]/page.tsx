@@ -234,7 +234,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       </Container>
 
       {/* 隐私主张(暗色段) */}
-      <section id="privacy" className="bg-[var(--color-ink)] text-white">
+      <section id="privacy" className="bg-[var(--color-ink)] text-white dark:bg-white dark:text-[#1d1d1f]">
         <Container className="py-16 text-center sm:py-24">
           <Reveal>
             <h2 className="hero-title mx-auto max-w-3xl">{t.home.privacyTitle}</h2>

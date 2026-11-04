@@ -3,12 +3,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Icon } from "./icons";
+import { ALL_TOOLS, TOOL_BY_SLUG } from "@/tools/registry";
+import { toolCopy } from "@/lib/tool-copy";
+import type { Locale } from "@/lib/site";
 
-export type RecentItem = { slug: string; name: string; icon: string };
+export type RecentItem = { slug: string; icon: string };
 
 const KEY = "zoyku-recent";
 
-/** 工具页挂载时记录访问(去重、最多 8 条)。 */
+/** 工具页挂载时记录访问(去重、最多 8 条)。只存 slug/icon,名称渲染时按当前语言取——跨语言切换不串字。 */
 export function trackRecent(item: RecentItem) {
   try {
     const list: RecentItem[] = JSON.parse(localStorage.getItem(KEY) ?? "[]");
@@ -25,7 +28,9 @@ export function RecentTools({ locale }: { locale: string }) {
 
   useEffect(() => {
     try {
-      setItems(JSON.parse(localStorage.getItem(KEY) ?? "[]"));
+      const raw: RecentItem[] = JSON.parse(localStorage.getItem(KEY) ?? "[]");
+      // 兼容旧记录(带 name 字段):剥掉即可,slug 不变
+      setItems(raw.map(({ slug, icon }) => ({ slug, icon })).filter((x) => TOOL_BY_SLUG.has(x.slug)));
     } catch {
       /* ignore */
     }
@@ -39,16 +44,20 @@ export function RecentTools({ locale }: { locale: string }) {
         {RECENT_LABEL[locale] ?? RECENT_LABEL.en}
       </p>
       <div className="flex flex-wrap justify-center gap-2">
-        {items.map((it) => (
-          <Link
-            key={it.slug}
-            href={`/${locale}/tools/${it.slug}`}
-            className="inline-flex items-center gap-2 rounded-full border hairline bg-white px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-[var(--color-surface)]"
-          >
-            <Icon name={it.icon} size={14} className="text-[var(--color-accent)]" />
-            {it.name}
-          </Link>
-        ))}
+        {items.map((it) => {
+          const tool = TOOL_BY_SLUG.get(it.slug)!;
+          const c = toolCopy(tool, locale as Locale);
+          return (
+            <Link
+              key={it.slug}
+              href={`/${locale}/tools/${it.slug}`}
+              className="recent-pill inline-flex items-center gap-2 rounded-full border hairline bg-[var(--color-card)] px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-[var(--color-surface)]"
+            >
+              <Icon name={it.icon} size={14} className="text-[var(--color-accent)]" />
+              {c.name}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

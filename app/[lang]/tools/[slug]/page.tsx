@@ -158,7 +158,7 @@ export default async function ToolPage({
 
       <EmbedGate active={embed} />
       <Engine {...tool.engine.props} />
-      <RecentTracker slug={tool.slug} name={c.name} icon={tool.icon} locale={locale} />
+      <RecentTracker slug={tool.slug} icon={tool.icon} />
 
       <p className="mt-4 flex items-start gap-2 text-[13px] leading-5 text-[var(--color-sub)]">
         <Icon name="lock" size={15} className="mt-0.5 flex-none text-[var(--color-good)]" />

@@ -11,18 +11,14 @@ import { Icon } from "./icons";
 /** 工具页挂载时记录最近使用(首页"最近使用"条数据源)。 */
 export function RecentTracker({
   slug,
-  name,
   icon,
-  locale,
 }: {
   slug: string;
-  name: string;
   icon: string;
-  locale: string;
 }) {
   useEffect(() => {
-    trackRecent({ slug, name, icon });
-  }, [slug, name, icon]);
+    trackRecent({ slug, icon });
+  }, [slug, icon]);
   return null;
 }
 

@@ -3,6 +3,42 @@ import { DEFAULT_LOCALE, LOCALE_SET } from "@/lib/site";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
+/**
+ * 滑动窗口限流(边缘 middleware 内存版):
+ * - 每 IP+UA 一个计数键,10 秒窗口,上限 40 请求;正常阅读与礼貌爬虫远低于此
+ * - 超限 429 + Retry-After,不再走后续页面渲染,直接省 CDN 回源与调用费
+ * - Map 上限 5000 键,超出整体重置,防内存膨胀(单实例近似限流,够用)
+ */
+const WINDOW_MS = 10_000;
+const MAX_REQ = 40;
+const MAX_KEYS = 5000;
+const hits = new Map<string, number[]>();
+
+function rateLimited(req: NextRequest): NextResponse | null {
+  const ip =
+    req.headers.get("x-real-ip") ||
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    "unknown";
+  const ua = (req.headers.get("user-agent") ?? "").slice(0, 40);
+  const key = `${ip}|${ua}`;
+  const now = Date.now();
+
+  let arr = hits.get(key);
+  if (!arr || now - arr[0] > WINDOW_MS) {
+    if (hits.size > MAX_KEYS) hits.clear();
+    arr = [];
+    hits.set(key, arr);
+  }
+  arr.push(now);
+  if (arr.length > MAX_REQ) {
+    return new NextResponse("Too Many Requests", {
+      status: 429,
+      headers: { "Retry-After": "10" },
+    });
+  }
+  return null;
+}
+
 /** 站长验证文件直出(playbook §2.3):Vercel 配好环境变量,URL 即可用;未配置一律 404。 */
 function verificationResponse(pathname: string): NextResponse | null {
   const vfile = pathname.slice(1);
@@ -56,7 +92,9 @@ export function proxy(req: NextRequest) {
   }
 
   const seg = pathname.split("/")[1];
-  if (LOCALE_SET.has(seg)) return NextResponse.next();
+  if (LOCALE_SET.has(seg)) {
+    return rateLimited(req) ?? NextResponse.next();
+  }
 
   const cookieLocale = req.cookies.get("locale")?.value;
   const headerLocale = req.headers
@@ -67,9 +105,11 @@ export function proxy(req: NextRequest) {
     .find((base) => LOCALE_SET.has(base));
 
   const locale = cookieLocale && LOCALE_SET.has(cookieLocale) ? cookieLocale : headerLocale ?? DEFAULT_LOCALE;
-  const url = req.nextUrl.clone();
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  return rateLimited(req) ?? (() => {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
+    return NextResponse.redirect(url);
+  })();
 }
 
 export const config = {
