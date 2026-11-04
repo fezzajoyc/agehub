@@ -33,7 +33,7 @@ export function LangSwitch() {
     <label className="flex flex-none items-center text-[13px] text-[var(--color-sub)]">
       <span className="sr-only">{t.nav.language}</span>
       <select
-        className="rounded-lg border hairline bg-white px-2 py-1.5"
+        className="rounded-lg border hairline bg-white px-2 py-1.5 dark:bg-[var(--color-card)]"
         value={locale}
         onChange={(e) => {
           const next = `/${e.target.value}${rest ? `/${rest}` : ""}`;

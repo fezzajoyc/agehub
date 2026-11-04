@@ -39,7 +39,7 @@ export function BadgeEmbed({
   };
 
   return (
-    <div className="rounded-2xl border hairline bg-white p-5">
+    <div className="rounded-2xl border hairline bg-white p-5 dark:bg-[var(--color-card)]">
       <div className="mb-4 flex items-center gap-3 rounded-xl bg-[var(--color-surface)] px-4 py-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={`/badge/${variant}.svg`} alt={`Zoyku badge ${variant}`} height={20} />

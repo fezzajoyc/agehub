@@ -9,7 +9,7 @@ import { CATEGORIES } from "@/lib/site";
 export function Nav() {
   const { locale, t } = useI18n();
   return (
-    <header className="sticky top-0 z-40 border-b hairline bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b hairline bg-white/80 backdrop-blur-md dark:bg-white/10">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-4 px-5 sm:px-8">
         <Link href={`/${locale}`} className="flex items-center gap-2 font-semibold tracking-tight">
           <span className="inline-flex rounded-lg bg-[var(--color-ink)] p-1.5 text-white">

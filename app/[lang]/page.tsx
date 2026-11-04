@@ -24,7 +24,7 @@ function Chip({ slug, locale }: { slug: string; locale: Locale }) {
   return (
     <Link
       href={`/${locale}/tools/${tool.slug}`}
-      className="inline-flex flex-none items-center gap-2 rounded-full border hairline bg-white px-4 py-2.5 text-[13.5px] font-medium text-[var(--color-ink)] shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-transform hover:scale-105"
+      className="inline-flex flex-none items-center gap-2 rounded-full border hairline bg-white px-4 py-2.5 text-[13.5px] font-medium text-[var(--color-ink)] dark:bg-white/10 shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-transform hover:scale-105"
     >
       <span className="text-[var(--color-accent)]">
         <Icon name={tool.icon} size={16} />
@@ -172,7 +172,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               return (
                 <Reveal key={c} delay={(i % 3) * 90}>
                   <div
-                    className={`flex h-full flex-col rounded-2xl border hairline bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.07)]`}
+                    className={`flex h-full flex-col rounded-2xl border hairline bg-white p-5 transition-all dark:bg-[var(--color-card)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.07)]`}
                   >
                     <div className="mb-3 inline-flex w-fit rounded-xl bg-[var(--color-surface)] p-2.5">
                       <Icon name={c} size={20} />
@@ -249,12 +249,12 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               { icon: "check", title: t.home.privacyPoint3T, desc: t.home.privacyPoint3D },
             ].map((p, i) => (
               <Reveal key={p.title} delay={i * 110}>
-                <div className="rounded-2xl bg-white/5 p-6">
-                  <span className="inline-flex rounded-xl bg-white/10 p-2.5 text-[#6db2ff]">
+                <div className="rounded-2xl bg-white/5 p-6 dark:bg-black/5">
+                  <span className="inline-flex rounded-xl bg-white/10 p-2.5 text-[#6db2ff] dark:text-[var(--color-accent)]">
                     <Icon name={p.icon} size={20} />
                   </span>
                   <h3 className="mt-4 font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-[14px] leading-6 text-white/60">{p.desc}</p>
+                  <p className="mt-2 text-[14px] leading-6 text-white/60 dark:text-[var(--color-sub)]>{p.desc}</p>
                 </div>
               </Reveal>
             ))}

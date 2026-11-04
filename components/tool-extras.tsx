@@ -46,7 +46,7 @@ export function ToolEmbedBox({
   return (
     <div className="rounded-2xl border hairline bg-[var(--color-surface)] p-5">
       <div className="flex items-start gap-3">
-        <span className="inline-flex rounded-xl bg-white p-2.5 text-[var(--color-accent)]">
+        <span className="inline-flex rounded-xl bg-white p-2.5 text-[var(--color-accent)] dark:bg-white/10">
           <Icon name="code" size={18} />
         </span>
         <div>
@@ -54,7 +54,7 @@ export function ToolEmbedBox({
           <p className="mt-1 text-[13.5px] leading-5 text-[var(--color-sub)]">{labels.desc}</p>
         </div>
       </div>
-      <div className="mt-3 rounded-xl border hairline bg-white p-3">
+      <div className="mt-3 rounded-xl border hairline bg-white p-3 dark:bg-white/5">
         <code className="mono block overflow-x-auto whitespace-nowrap text-[11.5px] leading-5">
           {code}
         </code>

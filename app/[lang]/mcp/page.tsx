@@ -65,7 +65,7 @@ export default async function McpPage({ params }: { params: Promise<{ lang: stri
         t.mcp?.desc2 ?? "",
       ].filter(Boolean)} />
 
-      <div className="mt-8 rounded-2xl border hairline bg-white p-5">
+      <div className="mt-8 rounded-2xl border hairline bg-white p-5 dark:bg-[var(--color-card)]">
         <h2 className="mb-2 font-semibold">{INSTALL_LABELS[locale]}</h2>
         <p className="mb-3 text-[13.5px] leading-5 text-[var(--color-sub)]">
           {t.mcp?.requiresNode ?? ""}
