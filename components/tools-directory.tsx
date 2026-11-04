@@ -83,7 +83,7 @@ export function ToolsDirectory({
                 href={`/${labels.hrefLang}/tools/${tool.slug}`}
                 className="group flex items-start gap-3 rounded-xl border hairline bg-white p-4 transition-colors dark:bg-[var(--color-card)] hover:bg-[var(--color-surface)]"
               >
-                <span className="mt-0.5 inline-flex flex-none rounded-lg bg-[var(--color-surface)] p-2 text-[var(--color-ink)] group-hover:bg-white">
+                <span className="mt-0.5 inline-flex flex-none rounded-lg bg-[var(--color-surface)] p-2 text-[var(--color-ink)] group-hover:bg-white dark:group-hover:bg-white/10">
                   <Icon name={tool.icon} size={18} />
                 </span>
                 <span>
